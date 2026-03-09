@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Eid Mubarak Pro Max</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
+
+body,html{
+
+margin:0;
+
+padding:0;
+
+height:100%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-family:'Hind Siliguri', sans-serif;
+
+color:white;
+
+overflow:hidden;
+
+background:black;
+
+animation:bg 6s infinite alternate;
+
+}
+
+@keyframes bg{
+
+0%{background:#000}
+
+50%{background:#001a1a}
+
+100%{background:#1a0000}
+
+}
+
+/* lights */
+
+.lights{position:fixed;top:0;width:100%;display:flex;justify-content:space-around;}
+
+.bulb{width:8px;height:8px;border-radius:50%;background:gold;animation:blink .4s infinite alternate;}
+
+@keyframes blink{from{opacity:.2}to{opacity:1;box-shadow:0 0 20px gold}}
+
+/* moon */
+
+.moon{position:fixed;top:70px;right:30px;font-size:30px;animation:moonMove 3s infinite alternate;}
+
+@keyframes moonMove{from{transform:translateY(0)}to{transform:translateY(15px)}}
+
+/* card */
+
+.card{
+
+background:rgba(255,255,255,.07);
+
+backdrop-filter:blur(10px);
+
+border-radius:25px;
+
+padding:30px 15px;
+
+width:90%;
+
+max-width:360px;
+
+text-align:center;
+
+animation:glow 2s infinite alternate;
+
+}
+
+@keyframes glow{from{box-shadow:0 0 10px gold}to{box-shadow:0 0 30px orange}}
+
+/* typing title */
+
+.typing{
+
+font-size:2.2rem;font-weight:bold;
+
+overflow:hidden;white-space:nowrap;
+
+border-right:3px solid gold;
+
+animation:typing 3s steps(20) infinite, blink .5s infinite;
+
+}
+
+@keyframes typing{from{width:0}to{width:100%}}
+
+/* text */
+
+.text{font-size:1rem;margin-top:10px;}
+
+/* name gradient letters, smaller */
+
+.name{font-size:0.85rem;font-weight:bold;margin:10px;}
+
+/* button */
+
+.btn{background:gold;border:none;padding:12px 25px;border-radius:50px;font-size:16px;font-weight:bold;cursor:pointer;}
+
+canvas{position:fixed;inset:0;pointer-events:none;}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="lights">
+
+<div class="bulb"></div><div class="bulb"></div><div class="bulb"></div><div class="bulb"></div>
+
+<div class="bulb"></div><div class="bulb"></div><div class="bulb"></div><div class="bulb"></div>
+
+</div>
+
+<div class="moon">🌙</div>
+
+<div class="card">
+
+<div style="font-size:25px">🎉 🎊</div>
+
+<!-- Rainbow typing Eid Mubarak -->
+
+<div class="typing" id="eid-title"></div>
+
+<!-- Description -->
+
+<div class="text">
+
+ঈদ মোবারক! 🌙🎉<br>
+
+আপনার ঈদ হোক আনন্দময় ও উৎসবমুখর।<br>
+
+প্রিয়জনদের সঙ্গে কাটুক স্মরণীয় মুহূর্তে।<br>
+
+হাসি, শান্তি ও আনন্দে ভরে উঠুক আপনার দিন।
+
+</div>
+
+<!-- Gradient name -->
+
+<div class="name" id="name">
+
+</div>
+
+<button class="btn" onclick="startShow()">
+
+উৎসব শুরু করুন 🎶
+
+</button>
+
+</div>
+
+<audio id="song" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+// Eid Mubarak rainbow typing
+
+const eidText = "ঈদ মোবারক";
+
+const eidTitle = document.getElementById("eid-title");
+
+const colors = ["#FFD700","#FF4500","#00FFFF","#ADFF2F","#FF69B4","#00FA9A","#FFA500"];
+
+let i=0;
+
+function rainbowTyping(){
+
+    if(i<eidText.length){
+
+        const span = document.createElement("span");
+
+        span.textContent = eidText[i];
+
+        span.style.color = colors[i%colors.length];
+
+        eidTitle.appendChild(span);
+
+        i++;
+
+        setTimeout(rainbowTyping,300);
+
+    }
+
+}
+
+rainbowTyping();
+
+// Name gradient letters
+
+const nameText = "আব্দুর রাহিম";
+
+const nameDiv = document.getElementById("name");
+
+const nameColors = ["#FFD700","#FF6347","#7FFFD4","#FF69B4","#ADFF2F","#00FA9A"];
+
+for(let j=0;j<nameText.length;j++){
+
+    const span = document.createElement("span");
+
+    span.textContent = nameText[j];
+
+    span.style.color = nameColors[j%nameColors.length];
+
+    nameDiv.appendChild(span);
+
+}
+
+const song=document.getElementById("song")
+
+let started=false
+
+function blast(){
+
+for(let k=0;k<5;k++){
+
+setTimeout(()=>{
+
+confetti({particleCount:80,spread:100,origin:{y:.6}});
+
+},k*300)
+
+}
+
+/* optional small sound effect */
+
+// const pop = new Audio('https://assets.mixkit.co/active_storage/sfx/2854/2854-preview.mp3');
+
+// pop.play();
+
+}
+
+/* button start */
+
+function startShow(){
+
+if(!started){
+
+song.play()
+
+blast()
+
+started=true
+
+}
+
+}
+
+/* shake blast */
+
+let lastX,lastY,lastZ
+
+window.addEventListener("devicemotion",e=>{
+
+let x=e.accelerationIncludingGravity.x
+
+let y=e.accelerationIncludingGravity.y
+
+let z=e.accelerationIncludingGravity.z
+
+if(lastX){
+
+let diff=Math.abs(x+y+z-lastX-lastY-lastZ)
+
+if(diff>25){
+
+blast()
+
+}
+
+}
+
+lastX=x
+
+lastY=y
+
+lastZ=z
+
+})
+
+/* auto confetti rain */
+
+setInterval(()=>{
+
+confetti({particleCount:20,spread:70,origin:{y:.6}})
+
+},2000)
+
+</script>
+
+</body>
+
+</html>
