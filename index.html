@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Eid Firework Pro Max</title>
+<title>Eid Festival Ultra</title>
 
 <style>
 
@@ -12,13 +13,22 @@ body,html{
 margin:0;
 padding:0;
 height:100%;
-background:black;
+overflow:hidden;
+font-family:sans-serif;
 color:white;
 display:flex;
 justify-content:center;
 align-items:center;
-font-family:sans-serif;
-overflow:hidden;
+background:url("https://i.ibb.co/2kR0pGJ/mosque.png") center/cover no-repeat;
+}
+
+/* dark overlay */
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
 }
 
 /* card */
@@ -33,21 +43,32 @@ text-align:center;
 box-shadow:0 0 20px gold;
 }
 
+/* typing */
+
 .typing{
-font-size:28px;
+font-size:32px;
 font-weight:bold;
+background:linear-gradient(red,yellow,green,cyan,blue);
+-webkit-background-clip:text;
+color:transparent;
 }
+
+/* text */
 
 .text{
 font-size:14px;
 margin-top:10px;
 }
 
+/* name */
+
 .name{
-font-size:12px;
-margin:8px;
+font-size:11px;
 color:gold;
+margin:5px;
 }
+
+/* button */
 
 .btn{
 background:gold;
@@ -57,6 +78,8 @@ border-radius:20px;
 cursor:pointer;
 }
 
+/* light */
+
 canvas{
 position:fixed;
 top:0;
@@ -64,9 +87,11 @@ left:0;
 }
 
 </style>
+
 </head>
 
 <body>
+
 
 <div class="card">
 
@@ -75,13 +100,16 @@ left:0;
 </div>
 
 <div class="text">
-ঈদ মোবারক! 🌙  
-আপনার ঈদ হোক আনন্দময়  
-শান্তি ও সুখে ভরে উঠুক জীবন  
+
+ঈদ মোবারক 🌙  
+আপনার জীবন সুখে ভরে উঠুক  
+শান্তি ও আনন্দ নেমে আসুক  
+সবার ঈদ হোক সুন্দর  
+
 </div>
 
 <div class="name">
-— আব্দুর রাহিম —
+— আব্দুর রহিম —
 </div>
 
 <button class="btn" onclick="startShow()">
@@ -105,35 +133,61 @@ src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
 
 const song=document.getElementById("song")
 
-const fireworks = new Fireworks.default(document.body, {
-  rocketsPoint:{min:0,max:100},
-  speed:2,
-  acceleration:1.05,
-  friction:0.97,
-  gravity:1.5,
-  particles:80,
-  explosion:5
-});
+const fireworks = new Fireworks.default(document.body,{
+
+rocketsPoint:{min:0,max:100},
+
+hue:{min:0,max:360},
+
+delay:{min:5,max:10},
+
+speed:4,
+
+acceleration:1.08,
+
+friction:0.95,
+
+gravity:1.2,
+
+particles:150,
+
+trace:6,
+
+explosion:10,
+
+intensity:40,
+
+brightness:{min:50,max:100},
+
+decay:{min:0.01,max:0.02}
+
+})
 
 let started=false
 
-function blast(){
 
-for(let i=0;i<5;i++){
+function megaBlast(){
+
+for(let i=0;i<15;i++){
 
 setTimeout(()=>{
 
 confetti({
-particleCount:80,
-spread:100,
+
+particleCount:120,
+
+spread:140,
+
 origin:{y:.6}
+
 })
 
-},i*300)
+},i*150)
 
 }
 
 }
+
 
 function startShow(){
 
@@ -141,7 +195,7 @@ if(!started){
 
 song.play()
 
-blast()
+megaBlast()
 
 fireworks.start()
 
@@ -150,6 +204,29 @@ started=true
 }
 
 }
+
+
+/* spark rain */
+
+setInterval(()=>{
+
+confetti({
+
+particleCount:20,
+
+spread:360,
+
+startVelocity:10,
+
+origin:{
+x:Math.random(),
+y:0
+}
+
+})
+
+},400)
+
 
 
 /* shake blast */
@@ -168,7 +245,7 @@ let diff=Math.abs(x+y+z-lastX-lastY-lastZ)
 
 if(diff>25){
 
-blast()
+megaBlast()
 
 }
 
